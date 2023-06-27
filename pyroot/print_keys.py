@@ -35,6 +35,9 @@ def print_root_info(input_file, only_tree):
 
             # Get the list of branches in the TTree
             branch_list = ttree.GetListOfBranches()
+            if len(branch_list)==0:
+                print("Error reading Branches: List of branches has not entries")
+                continue
 
             # Loop over the branches and print their names
             print("Branches:")
