@@ -45,8 +45,6 @@ def print_root_info(input_file, only_tree):
                 branch_name = branch.GetName()
                 print("- ", branch_name)
 
-        print("")
-
     # Close the ROOT file
     root_file.Close()
 
