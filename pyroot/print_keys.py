@@ -1,7 +1,7 @@
 import argparse
 import ROOT
 
-def print_root_info(input_file):
+def print_root_info(input_file, only_tree):
     # Open the input file
     root_file = ROOT.TFile(input_file)
 
@@ -17,8 +17,11 @@ def print_root_info(input_file):
     for key in key_list:
         key_name = key.GetName()
         key_class_name = key.GetClassName()
-        print("Key:", key_name)
-        print("Class Name:", key_class_name)
+        
+        if only_tree and key_class_name!="TTree":
+            continue
+        
+        print("Key:", key_name, "Class Name:", key_class_name)
 
         # Check if the key is a TTree
         if key_class_name == "TTree":
@@ -46,9 +49,10 @@ def print_root_info(input_file):
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(description="Print information about keys, TTrees, and branches in a ROOT file.")
-parser.add_argument("input_file", help="Path to the input ROOT file")
+parser.add_argument("-i", "--input-file", dest="input_file", help="Path to the input ROOT file")
+parser.add_argument('--only-ttree', dest='ttree', action='store_true')
 args = parser.parse_args()
 
 # Call the function with the input file provided
-print_root_info(args.input_file)
+print_root_info(args.input_file, args.ttree)
 
